@@ -29,10 +29,16 @@ class NameManager:
 
         names = list(db.prefix('name_'))
 
-        last_element = 'name_0' if len(names) == 0 else names[-1]
+        biggest_id = 0
+        for item in names:
+          id = int(utils.remove_prefix('name', item))
+
+          if biggest_id < id:
+            biggest_id = id
+
 
         db["name_" +
-           str(int(utils.remove_prefix('name', last_element)) + 1)] = name
+           str(biggest_id + 1)] = name
         return "L'ajout de : " + name + " a fonctionné !"
 
     @staticmethod

@@ -29,10 +29,15 @@ class InsultManager:
 
         insults = list(db.prefix('insult_'))
 
-        last_element = 'insult_0' if len(insults) == 0 else insults[-1]
+        biggest_id = 0
+        for item in insults:
+          id = int(utils.remove_prefix('insult', item))
+
+          if biggest_id < id:
+            biggest_id = id
 
         db["insult_" +
-           str(int(utils.remove_prefix('insult', last_element)) + 1)] = insult
+           str(biggest_id + 1)] = insult
         return "L'ajout de : " + insult + " a fonctionné !"
 
     @staticmethod
